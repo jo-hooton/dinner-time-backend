@@ -5,7 +5,7 @@ class CreateRecipes < ActiveRecord::Migration[8.0]
       t.integer :cook_minutes
       t.integer :prep_minutes
       t.float :rating
-      t.string :image_url
+      t.string :image
       t.jsonb :ingredients, default: [], null: false
 
       t.timestamps

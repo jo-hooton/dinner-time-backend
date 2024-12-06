@@ -19,7 +19,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_06_111047) do
     t.integer "cook_minutes"
     t.integer "prep_minutes"
     t.float "rating"
-    t.string "image_url"
+    t.string "image"
     t.jsonb "ingredients", default: [], null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

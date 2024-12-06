@@ -8,7 +8,7 @@ recipes_data.each do |recipe_data|
     cook_minutes: recipe_data['cook_time'],
     prep_minutes: recipe_data['prep_time'],
     rating: recipe_data['ratings'],
-    image_url: recipe_data['image'],
+    image: CGI.parse(recipe_data['image']).flat_map(&:last).last,
     ingredients: recipe_data['ingredients']
   )
 end
