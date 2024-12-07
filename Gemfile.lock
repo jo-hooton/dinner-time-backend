@@ -336,6 +336,7 @@ DEPENDENCIES
   bootsnap
   brakeman
   debug
+  dotenv
   kamal
   kaminari (~> 1.2)
   pg (~> 1.1)

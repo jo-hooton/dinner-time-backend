@@ -48,6 +48,7 @@ group :development, :test do
 
   gem 'rspec-rails'
   gem 'rack-cors', require: 'rack/cors'
+  gem 'dotenv'
 end
 
 
