@@ -4,7 +4,11 @@ class RecipesController < ApplicationController
 
     # Add conditions for included ingredients
     if params[:query].present?
-      recipes_query.search_by_cached_ingredients(params[:query])
+      ingredients = params[:query].split
+      recipes_query = recipes_query.where(
+        ingredients.map { "cached_ingredients ILIKE ?" }.join(" OR "),
+        *ingredients.map { |ingredient| "%#{ingredient}%" }
+      )
     end
 
     # Add conditions for excluded ingredients

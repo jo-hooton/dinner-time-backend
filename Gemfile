@@ -4,7 +4,7 @@ source "https://rubygems.org"
 gem "rails", "~> 8.0.0"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
-gem 'pg_search', '~> 2.3'
+gem "pg_search", "~> 2.3"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
@@ -34,9 +34,9 @@ gem "thruster", require: false
 # gem "image_processing", "~> 1.2"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
-gem 'rack-cors', require: 'rack/cors'
+gem "rack-cors", require: "rack/cors"
 
-gem 'active_model_serializers'
+gem "active_model_serializers"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -48,8 +48,8 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
-  gem 'rspec-rails'
-  gem 'dotenv'
+  gem "rspec-rails"
+  gem "dotenv"
 end
 
 

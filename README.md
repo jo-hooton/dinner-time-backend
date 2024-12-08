@@ -6,7 +6,6 @@ The backend of Dinner Time is developed using **Ruby on Rails** with **PostgreSQ
 
 ## Features
 
-- **PgSearch Integration**: Supports full-text search based on ingredients.
 - **Ingredient Exclusion**: Backend logic to filter out recipes containing specific ingredients.
 - **Filter by Cooking Time**: Users can filter recipes by preparation and cook time.
 - **Pagination**: Supports infinite scroll by allowing paginated requests.
@@ -32,7 +31,6 @@ To run the backend locally:
 
 - **Ruby on Rails**
 - **PostgreSQL** for database management
-- **PgSearch** for efficient search functionality
 
 ## Future Improvements
 
