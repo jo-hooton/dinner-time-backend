@@ -1,24 +1,37 @@
 class RecipesController < ApplicationController
   def index
-    # pg search for recipes containing specified ingredients
-    @recipes = params[:query].present? ? Recipe.search_by_ingredients(params[:query]) : Recipe.all
+    recipes_query = Recipe
 
-    # filter by prep + cook time if specified
-    if params[:time].present?
-      @recipes = @recipes.where("cook_minutes + prep_minutes <= ?", params[:time])
+    # Add conditions for included ingredients
+    if params[:query].present?
+      query_ingredients = params[:query].split
+      recipes_query = recipes_query.where(
+        query_ingredients.map { "EXISTS (SELECT 1 FROM ingredients WHERE ingredients.recipe_id = recipes.id AND ingredients.name ILIKE ?)" }
+        .join(" OR "),
+        *query_ingredients.map { |i| "%#{i}%" }
+      )
     end
 
-    # exclude recipes containing specified ingredients
+    # Add conditions for excluded ingredients
     if params[:exclude].present?
       exclude_ingredients = params[:exclude].split
-      exclude_ingredients.each do |ingredient|
-        @recipes = @recipes.where.not("ingredients::text ILIKE ?", "%#{ingredient}%")
-      end
+      recipes_query = recipes_query.where.not(
+        exclude_ingredients.map { "EXISTS (SELECT 1 FROM ingredients WHERE ingredients.recipe_id = recipes.id AND ingredients.name ILIKE ?)" }
+        .join(" OR "),
+        *exclude_ingredients.map { |i| "%#{i}%" }
+      )
     end
 
-    # pagination
-    @recipes = @recipes.page(params[:page]).per(params[:per] || 10)
+    # Add conditions for time constraints
+    if params[:time].present?
+      time_limit = params[:time].to_i
+      recipes_query = recipes_query.where("cook_minutes + prep_minutes <= ?", time_limit)
+    end
 
-    render json: @recipes
+    # Add pagination
+    recipes_query = recipes_query.page(params[:page]).per(params[:per] || 10)
+
+    # Fetch and render the recipes as JSON
+    render json: recipes_query, each_serializer: RecipeSerializer
   end
 end
