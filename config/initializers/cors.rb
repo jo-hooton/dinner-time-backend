@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins ENV['FRONTEND_URL']
+    origins ENV['FRONTEND_URL'] || 'http://localhost:5173' # Default to localhost if ENV is not set
     resource '*',
       headers: :any,
       methods: %i[get post put patch delete options head]
