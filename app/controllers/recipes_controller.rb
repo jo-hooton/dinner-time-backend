@@ -6,7 +6,7 @@ class RecipesController < ApplicationController
     if params[:query].present?
       ingredients = params[:query].split
       recipes_query = recipes_query.where(
-        ingredients.map { "cached_ingredients ILIKE ?" }.join(" OR "),
+        ingredients.map { "cached_ingredients ILIKE ?" }.join(" AND "),
         *ingredients.map { |ingredient| "%#{ingredient}%" }
       )
     end
